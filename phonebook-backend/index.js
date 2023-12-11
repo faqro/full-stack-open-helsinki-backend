@@ -14,9 +14,6 @@ morgan.token('data', (request, response) => (
         ? JSON.stringify(request.body)
         : null
 ))
-const unknownEndpoint = (request, response) => {
-    response.status(404).send({ error: 'unknown endpoint' })
-}
 
 let persons = [
     { 
@@ -97,8 +94,6 @@ app.post('/api/persons', (request, response) => {
 
     response.json(person)
 })
-
-app.use(unknownEndpoint)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
