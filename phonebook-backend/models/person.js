@@ -11,23 +11,28 @@ mongoose
     })
     .catch((error) => {
         console.log('error connecting to MongoDB: ', error.message)
-        console.log(error)
     })
 
 const personSchema = new mongoose.Schema({
-    name: String,
-    number: String,
+    name: {
+        type: String,
+        minLength: 3,
+        required: true
+    },
+    number: {
+        type: String,
+        minLength: 8,
+        validate: {
+            validator: num => {
+                return /\d{2,3}-\d+/.test(num);
+            },
+            message: props => `Phone number ${props.value} is invalid`
+        },
+        required: true
+    },
 })
 
 personSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
-        returnedObject.id = returnedObject._id.toString()
-        delete returnedObject._id
-        delete returnedObject.__v
-    }
-})
-
-personSchema.set('toObject', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
         delete returnedObject._id
