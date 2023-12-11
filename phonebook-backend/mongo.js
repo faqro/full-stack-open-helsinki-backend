@@ -6,8 +6,9 @@ if(process.argv.length < 3) {
 }
 
 const password = encodeURIComponent(process.argv[2])
+const user = 'username'
 
-const url = `mongodb+srv://faraazjan:${password}@open-fullstack-helsinki.r1nxzld.mongodb.net/phonebookApp?retryWrites=true&w=majority`
+const url = `mongodb+srv://${user}:${password}@open-fullstack-helsinki.r1nxzld.mongodb.net/phonebookApp?retryWrites=true&w=majority`
 
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
